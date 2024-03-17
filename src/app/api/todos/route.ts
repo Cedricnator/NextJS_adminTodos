@@ -1,11 +1,13 @@
 import prisma from '@/lib/prisma';
 import { NextResponse, NextRequest} from 'next/server';
+import * as yup from 'yup'
 
 export async function GET(request: Request) {
 
-    const { searchParams } = new URL(request.url)
+    const { searchParams } = new URL(request.url);
     const take = Number(searchParams.get('take') ?? '10');
     const skip = Number(searchParams.get('skip') ?? '0');
+
     if( isNaN(+take)){
         return NextResponse.json({ message: 'Take must be a number'}, { status: 400});
     }
@@ -14,14 +16,30 @@ export async function GET(request: Request) {
         return NextResponse.json({ message: 'Skip must be a number'}, { status: 400});
     }
 
-    const todos = await prisma.todo.findMany({ take, skip })
+    const todos = await prisma.todo.findMany({ take, skip });
 
     // const todos = await prisma.todo.findMany();
     return NextResponse.json(todos)
 }
 
+// Esquema de validación
+const postSchema = yup.object({
+    description: yup.string().required(),
+    complete: yup.boolean().optional().default(false),
+})
+
+// Se ingresa tanto la descripcion como el complete
 export async function POST(request: Request) {
+    try {
+
+        const { complete, description } = await postSchema.validate(await request.json());
+        
+        const todo = await prisma.todo.create({ data: { complete, description} });
+        
+        return NextResponse.json(todo);
     
-    const body = await request.json();
-    return NextResponse.json(body)
+    } catch (error) {
+        return NextResponse.json( error , { status:400 });    
+    }
+  
 }
