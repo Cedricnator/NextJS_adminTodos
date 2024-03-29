@@ -21,7 +21,7 @@ docker compose up -d
 
 ## Importante:
 1. Renombrar el .env.template a .env
-2. Reemplazar las variables de entorno
+2. Reemplazar las variables de entorno, con la url de la base de datos correspondiente
 3. Ejecutar el SEED para [crear la base de datos local](localhost:3000/api/seed)
 
 ## Prisma:
