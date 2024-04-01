@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { CiBookmarkCheck } from 'react-icons/ci'
 {/* Active className: text-white bg-gradient-to-r from-sky-600 to-cyan-400 */ }
 
-export default function SidebarItem() {
+export const  SidebarItem = () => {
   return (
 
     <div>

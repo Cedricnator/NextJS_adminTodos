@@ -1,6 +1,6 @@
 import { CiMenuBurger, CiSearch, CiChat1, CiBellOn } from 'react-icons/ci'
 
-export default function TopMenu() {
+export const TopMenu = () => {
   return (
     <div className="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
 
