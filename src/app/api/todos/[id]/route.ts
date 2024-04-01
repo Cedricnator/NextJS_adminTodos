@@ -34,29 +34,31 @@ export async function GET(request: Request, { params }: Segments ) {
 //* Validacion *// 
 const putSchema = yup.object({
     complete: yup.boolean().optional(),
-    description: yup.string().optional()
+    description: yup.string().optional(),
 })
 
 
 export async function PUT( request: Request, { params }: Segments ){
+
     // busca todo
-    const { id } = params;
-    const todo = getOneTodo( id );
+    const todo = getOneTodo( params.id );
 
     // sino hay todo, retorna error
     if( !todo ){
-        return NextResponse.json({ message: `No todo found with the id ${ id }`}, { status: 404 }) 
+        return NextResponse.json({ message: `No todo found with the id ${ params.id }`}, { status: 404 }) 
     }
 
     try {
-        const { complete, description } = await putSchema.validate(request.json());
+     
+        const { complete, description  } = await putSchema.validate( await request.json());
 
         const updatedTodo = await prisma.todo.update({
-            where: { id },
-            data: { complete, description }
+            where: { id: params.id },
+            data: { complete,  description  }
         })
 
         return NextResponse.json( updatedTodo )
+
     } catch (error) {
         return NextResponse.json(error, { status: 400 })
     }
