@@ -2,6 +2,27 @@ import Link from "next/link";
 import Image from "next/image";
 import { CiLogout } from "react-icons/ci";
 import { SidebarItem } from ".";
+import { IoCalendarOutline, IoListOutline } from "react-icons/io5";
+
+
+const menuItems = [
+  {
+    icon: <IoCalendarOutline />,
+    title: 'Dashboard',
+    path: '/dashboard'
+  },
+  {
+    icon: <IoCalendarOutline />,
+    title: 'Rest TODOS',
+    path: '/dashboard/rest-todos'
+  },
+  {
+    icon: <IoListOutline />,
+    title: 'Server Actions',
+    path: '/dashboard/server-todos'
+  }
+
+]
 
 export const Sidebar = () => {
   return (
@@ -33,7 +54,11 @@ export const Sidebar = () => {
         </div>
 
         <ul className="space-y-2 tracking-wide mt-8">
-          <SidebarItem />
+          {
+            menuItems.map( ( item ) => (
+              <SidebarItem key={item.title} {...item} />
+            ))
+          }
         </ul>
       </div>
 
