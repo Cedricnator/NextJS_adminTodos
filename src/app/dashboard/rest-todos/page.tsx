@@ -1,7 +1,7 @@
 // 'use client';
 // import { useEffect } from "react";
 import prisma from "@/lib/prisma"
-import { TodosGrid } from "@/todos";
+import { NewTodo, TodosGrid } from "@/todos";
 
 
 export const metadata = {
@@ -25,6 +25,7 @@ export default async function RestTodosPage() {
   
   return (
     <div>
+      <NewTodo />
       <TodosGrid todos={ todos } />
     </div>
   )
