@@ -1,6 +1,8 @@
 import { Todo } from "@prisma/client";
 
 export const updateTodo = async( id: string, complete: boolean): Promise<Todo> => {
+    
+    
     const body = { complete: complete };
     
     const todo = await fetch(`/api/todos/${ id }`, {
@@ -30,12 +32,13 @@ export const createTodo = async( description: string ): Promise<Todo> => {
     return todo;
 }
 
-export const deleteTodo = async() => {
+export const deleteTodo = async(): Promise<boolean> => {
     await fetch("/api/todos", {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
         }
     }).then( res => res.json());
-    console.log('Deleted');
+
+    return true;
 }

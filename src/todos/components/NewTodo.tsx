@@ -2,8 +2,8 @@
 
 import { FormEvent, useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
-import { createTodo, deleteTodo } from '../helpers/todo'
 import { useRouter } from "next/navigation";
+import { addTodo, deleteTodo } from '../actions/todo-actions';
 
 export const NewTodo = () => {
   const [description, setDescription] = useState('')
@@ -12,13 +12,12 @@ export const NewTodo = () => {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (description.trim().length === 0) return;
-    await createTodo(description);
-    router.refresh()
+    await addTodo(description);
+    setDescription('');
   }
 
   const deleteCompleted = async () => {
     await deleteTodo();
-    router.refresh()
   }
 
   return (
