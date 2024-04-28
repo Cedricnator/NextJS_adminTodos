@@ -37,7 +37,6 @@ export const TodoItem = ({ todo, toggleTodo }: Props) => {
                 { todo.description }
             </div>
         </div>
-        { todo.description }
 
     </div>
   )
